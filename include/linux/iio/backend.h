@@ -104,6 +104,7 @@ struct iio_backend_ops {
 				   enum iio_backend_sample_trigger trigger);
 	struct iio_buffer *(*request_buffer)(struct iio_backend *back,
 					     struct iio_dev *indio_dev);
+	struct regmap *(*get_regmap)(struct iio_backend *back);
 	void (*free_buffer)(struct iio_backend *back,
 			    struct iio_buffer *buffer);
 	int (*extend_chan_spec)(struct iio_backend *back,
@@ -136,6 +137,7 @@ int iio_backend_data_sample_trigger(struct iio_backend *back,
 int devm_iio_backend_request_buffer(struct device *dev,
 				    struct iio_backend *back,
 				    struct iio_dev *indio_dev);
+struct regmap *iio_backend_get_regmap(struct iio_backend *back);
 ssize_t iio_backend_ext_info_set(struct iio_dev *indio_dev, uintptr_t private,
 				 const struct iio_chan_spec *chan,
 				 const char *buf, size_t len);

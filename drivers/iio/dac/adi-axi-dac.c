@@ -128,6 +128,13 @@ static struct iio_buffer *axi_dac_request_buffer(struct iio_backend *back,
 					      IIO_BUFFER_DIRECTION_OUT);
 }
 
+static struct regmap *axi_dac_get_regmap(struct iio_backend *back)
+{
+	struct axi_dac_state *st = iio_backend_get_priv(back);
+
+	return st->regmap;
+}
+
 static void axi_dac_free_buffer(struct iio_backend *back,
 				struct iio_buffer *buffer)
 {
@@ -510,6 +517,7 @@ static int axi_dac_set_sample_rate(struct iio_backend *back, unsigned int chan,
 static const struct iio_backend_ops axi_dac_generic = {
 	.enable = axi_dac_enable,
 	.disable = axi_dac_disable,
+	.get_regmap = axi_dac_get_regmap,
 	.request_buffer = axi_dac_request_buffer,
 	.free_buffer = axi_dac_free_buffer,
 	.extend_chan_spec = axi_dac_extend_chan,

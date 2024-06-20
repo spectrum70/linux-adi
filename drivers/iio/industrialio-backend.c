@@ -534,6 +534,16 @@ static int __devm_iio_backend_get(struct device *dev, struct iio_backend *back)
 }
 
 /**
+ * iio_backend_get_regmap - Get backend regmap
+ * @back: Backend device
+ */
+struct regmap *iio_backend_get_regmap(struct iio_backend *back)
+{
+	return iio_backend_ptr_op_call(back, get_regmap);
+}
+EXPORT_SYMBOL_NS_GPL(iio_backend_get_regmap, IIO_BACKEND);
+
+/**
  * devm_iio_backend_get - Device managed backend device get
  * @dev: Consumer device for the backend
  * @name: Backend name
